@@ -1,4 +1,4 @@
-# Simple Web Server (SWS)
+# SWS
 
 ### About
 Based on a UNIX domain server: http://www.linuxhowtos.org/C_C++/socket.htm
@@ -16,12 +16,12 @@ http://{VM_ETH0_IP_ADDRESS}:8888/
 
 ### TODO
 ```
+[ok] ------------> PUSH into a folder called "Malo" in
+     ------------> https://github.com/julien-leroy/SimpleWebServer
 [--] FIX "undefined reference to Class::Method()"
 [--] REFACTOR "socket becomes a class (listen, read, bind, create, etc.)"
 [--] FEAT "display by default a webpage to displays 'It works!'"
 [--] FEAT "display HTTP response when a client send a request"
-[--] ------------> PUSH into a folder called "Malo" in
-     ------------> https://github.com/julien-leroy/SimpleWebServer
 ```
 
 ### Infos
