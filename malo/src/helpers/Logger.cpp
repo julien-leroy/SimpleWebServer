@@ -3,9 +3,7 @@
 
 using namespace std;
 
-Logger::Logger() {
-  // Nothing to do here
-}
+Logger::Logger() {}
 
 virtual ~Logger() {
     // Do some stuff here with non-static data members...
