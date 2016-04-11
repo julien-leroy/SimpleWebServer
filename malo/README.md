@@ -19,7 +19,7 @@ http://{VM_ETH0_IP_ADDRESS}:8888/
 [ok] ------------> PUSH into a folder called "Malo" in
      ------------> https://github.com/julien-leroy/SimpleWebServer
 [ok] FIX "undefined reference to Class::Method()"
-[--] REFACTOR "socket becomes a class (listen, read, bind, create, etc.)"
+[doing] REFACTOR "socket becomes a class (listen, read, bind, create, etc.)"
 [--] FEAT "display by default a webpage to displays 'It works!'"
 [--] FEAT "display HTTP response when a client send a request"
 [--] FEAT "create a Makefile" -> http://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/

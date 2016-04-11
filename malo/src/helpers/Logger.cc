@@ -1,17 +1,18 @@
-#include <iostream>
-#include <string>
+#include <iostream> // std::cout
+#include <string>   // std::string, std::to_string
+
 #include "Logger.hh"
 
 using namespace std;
 
 Logger::Logger () {}
 
-void Logger::print (string message) {
+void Logger::console (string message) {
   cout << message << endl;
 }
 
 void Logger::info (string message) {
-  this->print(message);
+  this->console(message);
 }
 
 void Logger::error (string code) {
@@ -38,10 +39,14 @@ void Logger::error (string code) {
     }
   }
 
-  this->print("ERR: " + message);
+  this->console("ERR: " + message);
 }
 
 void Logger::debug (string message) {
-  this->print(message);
+  this->console(message);
+}
+
+string Logger::toString (int text) {
+  return to_string(text);
 }
 

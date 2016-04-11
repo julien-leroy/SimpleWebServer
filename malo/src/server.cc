@@ -1,17 +1,15 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <netinet/in.h>
+// #include <stdio.h>
+// #include <stdlib.h>
+// #include <unistd.h>
+// #include <netinet/in.h>
 
-#include <string>
-#include <iostream>
-
+#include <iostream> // std::cout
+#include <string>   // std::string, std::to_string
 
 #include "helpers/Logger.hh"
 #include "Socket.hh"
-//#include "socket.h"
 
-using namespace std;
+using namespace std; // @todo remove
 
 
 int main(int argc, char *argv[]) {
@@ -19,41 +17,29 @@ int main(int argc, char *argv[]) {
   /* Logger instance */
   Logger* logger = new Logger();
 
-  /* Socket instance */
-  Socket* socket = new Socket(logger);
-
-  // Socket properties
-  const int family = AF_INET;
   const int BUFFER = 255;
 
-  int tsocket, request, answer, servlen, connection, PORT = atoi(argv[1]);
-  socklen_t clilen;
+  int port = atoi(argv[1]);
   char *message[256];
 
-  socket->open(10, 10, 8888);
+  /* Socket instance */
+  Socket* StreamSocket = new Socket(AF_INET, SOCK_STREAM, port, logger);
 
-  // see: http://www.cas.mcmaster.ca/~qiao/courses/cs3mh3/tutorials/socket.html
-  // struct sockaddr_in {
-  //   short           sin_family;  /* AF_INET */
-  //   u_short         sin_port;    /* 16-bit port number */
-  //   struct in_addr  sin_addr;
-  //   char            sin_zero[8]; /* unused */
-  // };
-  // struct sockaddr_in cli_addr, serv_addr; // /!\ ATTENTION !! à@revoirDépendance !
+  StreamSocket->open();
 
-  // socket = createSocket(family, SOCK_STREAM, logger);
+  // StreamSocket->bind();
 
-  // bindSocket(tsocket, family, PORT, logger);
+  // StreamSocket->listen();
 
-  // listenSocket(tsocket, PORT, logger);
+  // int request = StreamSocket->accept();
 
-  // request = acceptSocket(tsocket, logger);
+  // int connection = StreamSocket->read(request, message, BUFFER);
 
-  // connection = readSocket(request, message, BUFFER, logger);
+  // int answer = StreamSocket->write(message, connection, request);
 
-  // answer = writeSocket(message, connection, request, logger);
+  // logger->debug("info: " + to_string(answer));
 
-  // closeSocket(tsocket, request, logger);
+  // StreamSocket->close(request);
 
 
 

@@ -1,7 +1,7 @@
 #ifndef LOGGER_H
 #define LOGGER_H
 
-  #include <string>
+  #include <string>   // std::string, std::to_string
 
   using namespace std;
 
@@ -15,7 +15,7 @@
       /**
        *
        */
-      void print (string message);
+      void console (string message);
 
     public:
 
@@ -38,6 +38,12 @@
        *
        */
       void debug (string message);
+
+
+      /**
+       *
+       */
+      string toString (int text);
 
   };//void info(string) {}
 
