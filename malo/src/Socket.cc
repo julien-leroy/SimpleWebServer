@@ -1,6 +1,6 @@
 #include <sys/types.h>
 #include <sys/socket.h>
-
+#include <string>
 #include "Socket.hh"
 
 using namespace std;
@@ -9,11 +9,7 @@ Socket::Socket (Logger* logger) {
   logger = logger;
 }
 
-virtual Socket::~Socket () {
-  // Do some stuff here with non-static data members...
-}
-
-int open(int family, int type, int port) {
+int Socket::open (int family, int type, int port) {
 
   // // Error: no port specified
   // if (argc < 2) {
@@ -24,27 +20,27 @@ int open(int family, int type, int port) {
   cout << "coucou cay moa" << endl;
 }
 
-void bind(int tsocket, int family, int port) {
+void Socket::bind (int tsocket, int family, int port) {
   cout << "coucou cay moa" << endl;
 }
 
-void listen(int tsocket, int port) {
+void Socket::listen (int tsocket, int port) {
   cout << "coucou cay moa" << endl;
 }
 
-int accept(int tsocket) {
+int Socket::accept (int tsocket) {
   cout << "coucou cay moa" << endl;
 }
 
-int read(int request, void* message, int buffer) {
+int Socket::read (int request, void* message, int buffer) {
   cout << "coucou cay moa" << endl;
 }
 
-int write(void *message, int connection, int request) {
+int Socket::write (void *message, int connection, int request) {
   cout << "coucou cay moa" << endl;
 }
 
-void close(int tsocket, int request) {
+void Socket::close (int tsocket, int request) {
   cout << "coucou cay moa" << endl;
 }
 

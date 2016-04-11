@@ -1,13 +1,10 @@
+#include <iostream>
 #include <string>
 #include "Logger.hh"
 
 using namespace std;
 
 Logger::Logger () {}
-
-virtual Logger::~Logger () {
-  // Do some stuff here with non-static data members...
-}
 
 void Logger::print (string message) {
   cout << message << endl;

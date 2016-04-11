@@ -25,11 +25,6 @@
       Logger ();
 
       /**
-       * Destructor
-       */
-      virtual ~Logger ();
-
-      /**
        *
        */
       void info (string message);

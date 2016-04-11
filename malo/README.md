@@ -1,11 +1,11 @@
-# SWS
+# SWS (Static Web Server)
 
 ### About
 Based on a UNIX domain server: http://www.linuxhowtos.org/C_C++/socket.htm
 
 ### Build and run
 ```
-bash scripts/buildAndRun.sh
+bash scripts/yoloMakefile.sh
 ```
 
 ### Use with a navigator
@@ -18,10 +18,11 @@ http://{VM_ETH0_IP_ADDRESS}:8888/
 ```
 [ok] ------------> PUSH into a folder called "Malo" in
      ------------> https://github.com/julien-leroy/SimpleWebServer
-[--] FIX "undefined reference to Class::Method()"
+[ok] FIX "undefined reference to Class::Method()"
 [--] REFACTOR "socket becomes a class (listen, read, bind, create, etc.)"
 [--] FEAT "display by default a webpage to displays 'It works!'"
 [--] FEAT "display HTTP response when a client send a request"
+[--] FEAT "create a Makefile" -> http://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/
 ```
 
 ### Infos

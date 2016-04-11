@@ -19,10 +19,6 @@ int main(int argc, char *argv[]) {
   /* Logger instance */
   Logger* logger = new Logger();
 
-  logger->debug("test");
-
-  exit(0);
-
   /* Socket instance */
   Socket* socket = new Socket(logger);
 
