@@ -5,7 +5,7 @@ Based on a UNIX domain server: http://www.linuxhowtos.org/C_C++/socket.htm
 
 ### Build and run
 ```
-bash src/scripts/buildAndRun.sh
+bash scripts/buildAndRun.sh
 ```
 
 ### Use with a navigator

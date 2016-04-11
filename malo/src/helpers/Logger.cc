@@ -1,12 +1,12 @@
 #include <string>
-#include "Logger.h"
+#include "Logger.hh"
 
 using namespace std;
 
-Logger::Logger() {}
+Logger::Logger () {}
 
-virtual ~Logger() {
-    // Do some stuff here with non-static data members...
+virtual Logger::~Logger () {
+  // Do some stuff here with non-static data members...
 }
 
 void Logger::print (string message) {

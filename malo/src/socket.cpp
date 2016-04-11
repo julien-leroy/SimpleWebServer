@@ -1,6 +1,8 @@
 //#include <sys/types.h>
 //#include <sys/socket.h>
 
+#include "helpers/Logger.h"
+
 #include "socket.h"
 
 int createSocket(int family, int type, Logger *logger) {

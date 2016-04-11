@@ -22,12 +22,12 @@
       /**
        * Contructor
        */
-      Logger();
+      Logger ();
 
       /**
        * Destructor
        */
-      virtual ~Logger();
+      virtual ~Logger ();
 
       /**
        *
