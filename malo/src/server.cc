@@ -1,15 +1,8 @@
-// #include <stdio.h>
-// #include <stdlib.h>
-// #include <unistd.h>
-// #include <netinet/in.h>
-
 #include <iostream> // std::cout
-#include <string>   // std::string, std::to_string
+#include <cstring>  // std::string, std::to_string
 
 #include "helpers/Logger.hh"
-#include "Socket.hh"
-
-using namespace std; // @todo remove
+#include "socket/InternetSocket.hh"
 
 
 int main(int argc, char *argv[]) {
@@ -22,24 +15,24 @@ int main(int argc, char *argv[]) {
   int port = atoi(argv[1]);
   char *message[256];
 
-  /* Socket instance */
-  Socket* StreamSocket = new Socket(AF_INET, SOCK_STREAM, port, logger);
+  /* InternetSocket instance */
+  InternetSocket* ISocket = new InternetSocket(AF_INET, SOCK_STREAM, port, logger);
 
-  StreamSocket->open();
+  ISocket->open();
 
-  // StreamSocket->bind();
+  ISocket->bindName();
 
-  // StreamSocket->listen();
+  ISocket->listenToClient(5);
 
-  // int request = StreamSocket->accept();
+  int request = ISocket->acceptConnection();
 
-  // int connection = StreamSocket->read(request, message, BUFFER);
+  // int connection = ISocket->read(request, message, BUFFER);
 
-  // int answer = StreamSocket->write(message, connection, request);
+  // int answer = ISocket->write(message, connection, request);
 
   // logger->debug("info: " + to_string(answer));
 
-  // StreamSocket->close(request);
+  // ISocket->close(request);
 
 
 

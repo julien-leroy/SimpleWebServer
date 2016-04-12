@@ -1,40 +1,37 @@
-#ifndef SOCKET_H
-#define SOCKET_H
+#ifndef INTERNETSOCKET_H
+#define INTERNETSOCKET_H
 
   #include <sys/types.h>
   #include <sys/socket.h>
 
-  #include "helpers/Logger.hh"
+  #include "../helpers/Logger.hh"
 
   /**
-   * Class Socket
+   * Class InternetSocket
    */
-  class Socket {
+  class InternetSocket {
 
     private:
 
       /* Logger instance */
       Logger* logger; // @todo voir pour mettre logger en static ?
 
-      /* Socket family (IPV4, IPV6, unix, ax25, etc.)
+      /* Socket family (AF_INET for IPV4, or AF_INET6 for IPV6)
        * http://www.linuxhowtos.org/manpages/2/socket.htm
        */
       int family;
 
-      /* Socket type (stream, datagram, raw, rdm, etc.)
+      /* Internet Socket type (stream, datagram, raw, rdm, etc.)
        * http://www.linuxhowtos.org/manpages/2/socket.htm
        */
       int type;
 
-      /* Port on which the Socket's instance is binded and listening */
+      /* Port on which the Internet Socket's instance is binded and listening */
       int port;
 
-      /* Socket instance */
-      int socket;
+      /* Internet Socket instance */
+      int InternetSocketInstance;
 
-      // @todo BULLSHIT
-      int servlen;
-        socklen_t clilen;
       // see: http://www.cas.mcmaster.ca/~qiao/courses/cs3mh3/tutorials/socket.html
       // struct sockaddr_in {
       //   short           sin_family;  /* AF_INET */
@@ -49,7 +46,7 @@
       /**
        * Contructor
        */
-      Socket (int family, int type, int port, Logger* logger);
+      InternetSocket (int family, int type, int port, Logger* logger);
 
       /**
        *
@@ -63,19 +60,18 @@
        * see: http://www.linuxhowtos.org/manpages/2/bind.htm
        * int bind(int sockfd, const struct sockaddr *addr, socklen_t addrlen);
        */
-      void bind ();
+      void bindName ();
 
       /**
-       *
-       *
+       * Get ready for accepting connection requests from a client
        */
-      void listen ();
+      void listenToClient (int maxRequestsToQueue);
 
       /**
-       *
+       * Set up an actual connection with a client process
        * usage: accept (int sockfd, struct sockaddr *cli_addr, int *addrlen);
        */
-      int accept ();
+      int acceptConnection ();
 
       /**
        *
