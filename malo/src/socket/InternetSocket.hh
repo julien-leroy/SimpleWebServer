@@ -3,6 +3,7 @@
 
   #include <sys/types.h>
   #include <sys/socket.h>
+  #include <netinet/in.h>
 
   #include "../helpers/Logger.hh"
 
@@ -16,10 +17,10 @@
       /* Logger instance */
       Logger* logger; // @todo voir pour mettre logger en static ?
 
-      /* Socket family (AF_INET for IPV4, or AF_INET6 for IPV6)
+      /* Socket family|protocol (AF_INET for IPV4, or AF_INET6 for IPV6)
        * http://www.linuxhowtos.org/manpages/2/socket.htm
        */
-      int family;
+      int protocol;
 
       /* Internet Socket type (stream, datagram, raw, rdm, etc.)
        * http://www.linuxhowtos.org/manpages/2/socket.htm
@@ -32,6 +33,7 @@
       /* Internet Socket instance */
       int InternetSocketInstance;
 
+      /* Internet Socket address */
       // see: http://www.cas.mcmaster.ca/~qiao/courses/cs3mh3/tutorials/socket.html
       // struct sockaddr_in {
       //   short           sin_family;  /* AF_INET */
@@ -39,14 +41,14 @@
       //   struct in_addr  sin_addr;
       //   char            sin_zero[8]; /* unused */
       // };
-      //struct sockaddr_in cli_addr, serv_addr; // /!\ ATTENTION !! à@revoirDépendance !
+      struct sockaddr_in client, server;
 
     public:
 
       /**
        * Contructor
        */
-      InternetSocket (int family, int type, int port, Logger* logger);
+      InternetSocket (int protocol, int type, int port, Logger* logger);
 
       /**
        *

@@ -10,43 +10,41 @@
 
 #include "InternetSocket.hh"
 
-InternetSocket::InternetSocket (int family, int type, int port, Logger* logger) {
-  this->family = family;
-  this->type   = type;
-  this->port   = port;
-  this->logger = logger;
+InternetSocket::InternetSocket (int protocol, int type, int port, Logger* logger) {
+  this->protocol = protocol;
+  this->type     = type;
+  this->port     = port;
+  this->logger   = logger;
 
   this->logger->info("New InternetSocket class instance created...");
 }
 
 void InternetSocket::open () {
-  int SocketInstance = socket(this->family, this->type, 0);
+  int SocketInstance = socket(this->protocol, this->type, 0);
 
   if (SocketInstance == -1) {
     this->logger->error("ERR_SOCKET_OPEN");
     exit(1);
   }
   this->InternetSocketInstance = SocketInstance;
-  this->logger->info("InternetSocket of family " + logger->toString(this->family) + " and type " + logger->toString(this->type) + " is opened...");
+  this->logger->info("InternetSocket of family " + logger->toString(this->protocol) + " and type " + logger->toString(this->type) + " is opened...");
 }
 
-/*
-@GUILLAUME -> HERE
-*/
 void InternetSocket::bindName () {
-  struct sockaddr_in serv_addr;
-  int BindedSocket;
-
   // see: https://www.mkssoftware.com/docs/man3/bzero.3.asp
   // see: https://www.mkssoftware.com/docs/man3/memset.3.asp
   // ex memset: memset(someobject, size_of_object, 0);
-  memset((char *) &serv_addr, sizeof(serv_addr), 0);
+  memset((char *) &this->server, sizeof(this->server), 0);
 
-  serv_addr.sin_family      = this->family;
-  serv_addr.sin_port        = htons(this->port); // host to network short
-  serv_addr.sin_addr.s_addr = htonl(INADDR_ANY); // htonl -> host to network long | INADDR_ANY -> any Internet interface
+  this->server.sin_family      = this->protocol;
+  this->server.sin_port        = htons(this->port); // host to network short
+  this->server.sin_addr.s_addr = INADDR_ANY;        // INADDR_ANY -> any Internet interface
 
-  BindedSocket = bind(this->InternetSocketInstance, (struct sockaddr *) &serv_addr, sizeof(serv_addr));
+  int BindedSocket = bind(
+      this->InternetSocketInstance,
+      (struct sockaddr *) &this->server,
+      sizeof(this->server)
+  );
 
   if (BindedSocket == -1) {
     this->logger->error("ERR_SOCKET_BIND");
@@ -61,18 +59,20 @@ void InternetSocket::listenToClient (int maxRequestsToQueue) {
   this->logger->info("Server ready for accepting client connection requests (MAX " + std::to_string(maxRequestsToQueue) + ")...");
 }
 
-/*
-@GUILLAUME -> HERE
-*/
 int InternetSocket::acceptConnection () {
-  // int request = accept(socket, (struct sockaddr *) &cli_addr, sizeof(cli_addr));
-  // if (request < 0) {
-  //   this->logger->error("ERR_SOCKET_ACCEPT");
-  //   exit(1);
-  // }
-  // this->logger->info("InternetSocket accepted for request");
-  // return request;
-  return 1;
+  int urlStructureSize = sizeof(struct sockaddr_in);
+  int request = accept(
+      this->InternetSocketInstance,
+      (struct sockaddr *) &this->client,
+      (socklen_t*) &urlStructureSize
+  );
+
+  if (request < 0) {
+    this->logger->error("ERR_SOCKET_ACCEPT");
+    exit(1);
+  }
+  this->logger->info("InternetSocket accepted for request");
+  return request;
 }
 
 int InternetSocket::read (int request, void* message, int buffer) {
