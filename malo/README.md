@@ -2,6 +2,8 @@
 
 ### About
 Based on a UNIX domain server: http://www.linuxhowtos.org/C_C++/socket.htm
+It's a Berkeley Socket (stream)
+see: https://www.wikiwand.com/en/Berkeley_sockets
 
 ### Build and run
 ```
@@ -19,7 +21,7 @@ http://{VM_ETH0_IP_ADDRESS}:8888/
 [ok] ------------> PUSH into a folder called "Malo" in
      ------------> https://github.com/julien-leroy/SimpleWebServer
 [ok] FIX "undefined reference to Class::Method()"
-[doing] REFACTOR "socket becomes a class (listen, read, bind, create, etc.)"
+[ok] REFACTOR "socket becomes a class (listen, read, bind, create, etc.)"
 [--] FEAT "display by default a webpage to displays 'It works!'"
 [--] FEAT "display HTTP response when a client send a request"
 [--] FEAT "create a Makefile" -> http://www.cs.colby.edu/maxwell/courses/tutorials/maketutor/

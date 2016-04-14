@@ -1,5 +1,6 @@
 #ifndef LOGGER_H
-#define LOGGER_H
+
+  #define LOGGER_H
 
   #include <string>
 
@@ -13,7 +14,7 @@
       /**
        *
        */
-      void console (std::string message);
+      void console (std::string message_);
 
     public:
 
@@ -25,24 +26,28 @@
       /**
        *
        */
-      void info (std::string message);
+      void info (std::string message_);
 
       /**
        *
        */
-      void error (std::string code);
+      void error (std::string code_);
 
       /**
        *
        */
-      void debug (std::string message);
-
+      void debug (std::string message_);
 
       /**
        *
        */
-      std::string toString (int text);
+      void messageFromCode (std::string code_);
 
-  };//void info(string) {}
+      /**
+       *
+       */
+      std::string toString (int text_);
+
+  };
 
 #endif
