@@ -7,7 +7,7 @@ see: https://www.wikiwand.com/en/Berkeley_sockets
 
 ### Build and run
 ```
-bash scripts/yoloMakefile.sh
+bash scripts/Makefile.sh
 ```
 
 ### Use with a navigator

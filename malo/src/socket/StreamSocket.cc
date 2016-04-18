@@ -1,3 +1,23 @@
+/* -*- C++ -*- */
+
+/****************************************************************************
+** Copyright (c) 2016 - 2018, Malo Blanchard
+**
+** This file is part of the SimpleWebServer project
+**
+** This file may be distributed under the terms of the SimpleWebServer
+** license as defined by SimpleWebServer and appearing in the file
+** LICENSE included in the packaging of this file.
+**
+** This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
+** WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
+**
+** See https://github.com/Izin/sws/master/LICENSE for licensing information.
+**
+** Contact github@maloblanchard.com if any conditions of this licensing are
+** not clear to you.
+**/
+
 #include <sys/socket.h> // Core socket functions and data structures
 #include <netinet/in.h> // AF_INET and AF_INET6 address families and their corresponding protocol families
 #include <arpa/inet.h>  // Core socket functions and data structures (eg: inet_addr)
@@ -18,36 +38,35 @@ StreamSocket::StreamSocket (int protocol_, Logger* logger_) {
 }
 
 StreamSocket& StreamSocket::create () {
-  // Create socket if not already created
-  if (sock == -1) {
-    sock = socket(protocol, SOCK_STREAM, 0);
-    // Exit if failure
-    if (sock < 0) {
-      logger->messageFromCode("ERR_SOCKET_CREATE");
-      exit(1);
-    }
-    logger->info("new socket created...");
-  }
-  // Socket already created
-  else {
+  if (sock > -1) {
     logger->messageFromCode("ERR_SOCKET_ALREADY_CREATED");
+    return *this;
   }
 
+  sock = socket(protocol, SOCK_STREAM, 0);
+
+  if (sock < 0) {
+    logger->messageFromCode("ERR_SOCKET_CREATE");
+    exit(1);
+  }
+
+  logger->info("new socket created...");
   return *this;
 }
 
 StreamSocket& StreamSocket::attach (int port_) {
-  // Setup the port value
   port = port_;
 
+  int AddrSize = sizeof(serverAddr);
+
   // https://www.mkssoftware.com/docs/man3/memset.3.asp
-  memset((char *) &serverAddr, sizeof(serverAddr), 0);
+  memset((char *) &serverAddr, AddrSize, 0);
 
   serverAddr.sin_family      = protocol;
   serverAddr.sin_port        = htons(port); // host to network short
-  serverAddr.sin_addr.s_addr = INADDR_ANY;  // INADDR_ANY -> any Internet interface
+  serverAddr.sin_addr.s_addr = INADDR_ANY;  // Any Internet interface
 
-  int status = bind(sock, (struct sockaddr *) &serverAddr, sizeof(serverAddr));
+  int status = bind(sock, (struct sockaddr *) &serverAddr, AddrSize);
 
   if (status < 0) {
     logger->messageFromCode("ERR_SOCKET_BIND");
@@ -67,27 +86,36 @@ StreamSocket& StreamSocket::lookOut (int maximumPendingRequestsQueueSize_) {
   }
 
   logger->info("socket waiting for client connections (queueSize: " + to_string(maximumPendingRequestsQueueSize_) + ")...");
+  return *this;
 }
 
-StreamSocket& StreamSocket::acquire () {
-  int size, status;
+ int StreamSocket::acquire () {
+  logger->info(logger->toString(sock));
+  int size, request;
 
-  size   = sizeof(struct sockaddr_in);
-  status = accept(sock, (struct sockaddr *) &clientAddr, (socklen_t*) &size);
+  size    = sizeof(struct sockaddr_in);
+  request = accept(sock, (struct sockaddr *) &clientAddr, (socklen_t*) &size);
 
-  if (status < 0) {
+  if (request < 0) {
     logger->messageFromCode("ERR_SOCKET_ACCEPT");
     StreamSocket::quit();
   }
 
-  logger->info("request from client acquired...");
-  return *this;
+  logger->info("request from client accepted...");
+  return request;
 }
 
-StreamSocket& StreamSocket::deliver (const void* buffer_, size_t length_, int flags_) {
-  // @todo ne passer qu'un message en paramètre. Faire la transformation buffer and co
-  // que localement à cette méthode pour masquer la bullshit !
-  int status = send(sock, buffer_, length_, flags_);
+StreamSocket& StreamSocket::deliver (string message_) {
+  // http://stackoverflow.com/questions/7352099/stdstring-to-char
+  char * message = (char *) message_.c_str();
+  ssize_t length, status;
+
+  length  = strlen(message);
+  logger->info(logger->toString(sock) + " -> " + message_ + "(" + logger->toString(length) + ")");
+
+  status = send(sock, message, length, 0);
+
+  logger->info("send ok");
 
   if (status < 0) {
     logger->messageFromCode("ERR_SOCKET_SEND");
@@ -100,9 +128,7 @@ StreamSocket& StreamSocket::deliver (const void* buffer_, size_t length_, int fl
 
 void StreamSocket::quit () {
   if (sock > 0) {
-    // Close socket
     close(sock);
-    // Reset integer value
     sock = -1;
   }
 
