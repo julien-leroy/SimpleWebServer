@@ -31,8 +31,8 @@ function makeBuild() {
   echo "------------------------------------------------------"
   g++ -c $2/src/helpers/Logger.cc $FLAGS
   g++ -c $2/src/socket/StreamSocket.cc $FLAGS
-  g++ -c $2/src/server.cc $FLAGS
-  g++ -o $1 $2/Logger.o $2/StreamSocket.o $2/server.o $FLAGS
+  g++ -c $2/src/main.cc $FLAGS
+  g++ -o $1 $2/Logger.o $2/StreamSocket.o $2/main.o $FLAGS
   return 0
 }
 
