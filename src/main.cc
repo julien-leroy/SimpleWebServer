@@ -26,9 +26,18 @@ int main(int argc, char *argv[]) {
     client = socket.acquire();
 
     if (socket.receive(client)) {
-      response = socket.getRessource(); // @todo refactor -> déplacer cette méthode dans une classe serveur, ce n'est pas le rôle du socket !
-      socket.deliver(client, response)
-            .disconnect(client);
+      pid_t pid = fork();
+
+      if(pid < 0){
+        perror("ERROR on fork");
+      }
+      
+      if(pid == 0){
+        response = socket.getRessource(); // @todo refactor -> déplacer cette méthode dans une classe serveur, ce n'est pas le rôle du socket !
+        socket.deliver(client, response);
+        exit(0);
+      }
+      socket.disconnect(client);
     }
 
   }
