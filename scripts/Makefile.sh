@@ -14,6 +14,8 @@ function makeBuild() {
   g++ -c $2/src/socket/TCPSocket.cc $FLAGS
   g++ -c $2/src/main.cc $FLAGS
   g++ -o $1 $2/Logger.o $2/TCPSocket.o $2/main.o $FLAGS
+  mv $1 $2/bin
+  rm *.o
   return 0
 }
 
