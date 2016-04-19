@@ -2,6 +2,7 @@
 #include <cstring>  // std::string, std::to_string
 #include <stdio.h>
 #include <unistd.h>
+#include <signal.h>
 
 #include "helpers/Logger.hh"
 #include "socket/TCPSocket.hh"
@@ -37,7 +38,7 @@ int main(int argc, char *argv[]) {
       if(pid == 0){
         response = socket.getRessource(); // @todo refactor -> déplacer cette méthode dans une classe serveur, ce n'est pas le rôle du socket !
         socket.deliver(client, response);
-        exit(0);
+        atexit;
       }
       socket.disconnect(client);
     }
