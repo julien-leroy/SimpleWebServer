@@ -1,27 +1,59 @@
-# Simple Web Server
+Simple-WebSocket-Server
+=================
 
-### Keywords
-webserver, static, stream, socket, IPV4, loopback
+A very simple, fast, multithreaded, platform independent WebSocket (WS) and WebSocket Secure (WSS) server and client library implemented using C++11, Boost.Asio and OpenSSL. Created to be an easy way to make WebSocket endpoints in C++.
 
-### Build and run
-```
-bash scripts/Makefile.sh
+See https://github.com/eidheim/Simple-Web-Server for an easy way to make REST resources available from C++ applications. Also, feel free to check out the new C++ IDE supporting C++11/14/17: https://github.com/cppit/jucipp. 
+
+### Features
+
+* RFC 6455 mostly supported: text/binary frames, ping-pong, connection close with status and reason.
+* Thread pool
+* Platform independent
+* WebSocket Secure support
+* Timeouts, if any of SocketServer::timeout_request and SocketServer::timeout_idle are >0 (default: SocketServer::timeout_request=5 seconds, and SocketServer::timeout_idle=0 seconds; no timeout on idle connections)
+* Simple way to add WebSocket endpoints using regex for path, and anonymous functions
+* An easy to use WebSocket and WebSocket Secure client library
+* C++ bindings to the following OpenSSL methods: Base64, MD5, SHA1, SHA256 and SHA512 (found in crypto.hpp)
+
+###Usage
+
+See ws_examples.cpp or wss_examples.cpp for example usage. 
+
+### Dependencies
+
+* Boost C++ libraries 
+* OpenSSL libraries
+sudo apt-get install libboost-all-dev libssl-dev --fix-missing
+
+### Compile
+
+Compile with a C++11 supported compiler:
+
+```sh
+openssl genrsa -des3 -out server.key 1024
+openssl req -new -key server.key -out server.csr
+cp server.key server.key.org
+openssl rsa -in server.key.org -out server.key
+openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
+
+cmake .
+make
 ```
 
-### Send request from client
-```
-navigator -> "http://{VM_ETH0_IP_ADDRESS}:{PORT_NUMBER}/{FILE_NAME_OR_NOTHING}"
+#### Run server and client examples
+
+### WS
+
+```sh
+./ws_examples
 ```
 
-### Fonctionnement socket (FR)
- 1. Création d'un socket IPV4 de type stream
- 2. Ecoute du socket sur l'addresse de loopback et un port
- 3. Indication de la taille maximale de la queue de requêtes clients simultannées
- 4. Lancement d'une boucle infinie :
-    1. Récupération du premier client se connectant à notre socket
-    2. Si ce dernier nous envoie une requête :
-      1. Traitement de la requête
-      2. Génération de la réponse
-      3. Envoi de la réponse avec le bon formatage (HEADER, HTTP status code, etc.)
-      4. Déconnection du client courant
- 5. Arrêt du socket
+### WSS
+
+Before running the WSS-examples, an RSA private key (server.key) and an SSL certificate (server.crt) must be created. Follow, for instance, the instructions given here (for a self-signed certificate): http://www.akadia.com/services/ssh_test_certificate.html
+
+Then:
+```
+./wss_examples
+```
