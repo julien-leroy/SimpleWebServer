@@ -14,18 +14,20 @@ function makeBuild() {
   g++ -c $2/src/socket/TCPSocket.cc $FLAGS
   g++ -c $2/src/main.cc $FLAGS
   g++ -o $1 $2/Logger.o $2/TCPSocket.o $2/main.o $FLAGS
+  mv $1 $2/bin/
+  rm *.o
   return 0
 }
 
 function makeRun() {
-  if [ ! -f "$2/$1" ]; then
+  if [ ! -f "$2/bin/$1" ]; then
     return 1;
   fi
 
   echo ""
   echo "RUN"
   echo "------------------------------------------------------"
-  ./$1
+  ./bin/$1
   return 0
 }
 
