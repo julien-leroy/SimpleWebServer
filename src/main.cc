@@ -1,5 +1,7 @@
 #include <iostream> // std::cout
 #include <cstring>  // std::string, std::to_string
+#include <stdio.h>
+#include <unistd.h>
 
 #include "helpers/Logger.hh"
 #include "socket/TCPSocket.hh"
