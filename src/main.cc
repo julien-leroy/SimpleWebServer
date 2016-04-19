@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
   int client;
 
   /* Logger instance */
-  Logger *logger = new Logger();
+  Logger *logger = new Logger(true);
 
   /* TCPSocket instance */
   TCPSocket socket = TCPSocket(SOCK_STREAM, AF_INET, logger);
