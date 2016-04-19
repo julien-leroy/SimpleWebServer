@@ -1,7 +1,7 @@
 /* -*- C++ -*- */
 
 /****************************************************************************
-** Copyright (c) 2016 - 2018, Malo Blanchard
+** Copyright (C) 2016-2018 Malo Blanchard
 **
 ** This file is part of the SimpleWebServer project
 **
@@ -38,9 +38,13 @@ int main(int argc, char *argv[]) {
         .attach(8888)
         .lookOut(5);
 
-  while (socket.acquire()) {
-    socket.deliver("coucou j'aime les carottes").quit();
-  }
+  int client = socket.acquire();
+
+  socket.receive(client);
+
+  socket.disconnect(client);
+
+  //socket.quit();
 
   return 0;
 }

@@ -1,7 +1,7 @@
 /* -*- C++ -*- */
 
 /****************************************************************************
-** Copyright (c) 2016 - 2018, Malo Blanchard
+** Copyright (C) 2016-2018 Malo Blanchard
 **
 ** This file is part of the SimpleWebServer project
 **
@@ -27,6 +27,8 @@
 #include <string>       // string
 
 #include "StreamSocket.hh"
+
+#define BUFFER_SIZE 100 // Max size for a message
 
 using namespace std;
 
@@ -57,18 +59,14 @@ StreamSocket& StreamSocket::create () {
 StreamSocket& StreamSocket::attach (int port_) {
   port = port_;
 
-  int AddrSize = sizeof(serverAddr);
-
   // https://www.mkssoftware.com/docs/man3/memset.3.asp
-  memset((char *) &serverAddr, AddrSize, 0);
+  memset(&server, 0, sizeof(server));
 
-  serverAddr.sin_family      = protocol;
-  serverAddr.sin_port        = htons(port); // host to network short
-  serverAddr.sin_addr.s_addr = INADDR_ANY;  // Any Internet interface
+  server.sin_family      = protocol;
+  server.sin_port        = htons(port); // host to network short
+  server.sin_addr.s_addr = INADDR_ANY;  // Any Internet interface
 
-  int status = bind(sock, (struct sockaddr *) &serverAddr, AddrSize);
-
-  if (status < 0) {
+  if (bind(sock, (struct sockaddr *) &server, sizeof(server)) < 0) {
     logger->messageFromCode("ERR_SOCKET_BIND");
     StreamSocket::quit();
   }
@@ -78,9 +76,8 @@ StreamSocket& StreamSocket::attach (int port_) {
 }
 
 StreamSocket& StreamSocket::lookOut (int maximumPendingRequestsQueueSize_) {
-  int status = listen(sock, maximumPendingRequestsQueueSize_);
 
-  if (status < 0) {
+  if (listen(sock, maximumPendingRequestsQueueSize_) < 0) {
     logger->messageFromCode("ERR_SOCKET_LISTEN");
     StreamSocket::quit();
   }
@@ -89,12 +86,14 @@ StreamSocket& StreamSocket::lookOut (int maximumPendingRequestsQueueSize_) {
   return *this;
 }
 
- int StreamSocket::acquire () {
-  logger->info(logger->toString(sock));
+int StreamSocket::acquire () {
   int size, request;
+  socklen_t length = sizeof(client);
+
+  memset(&client, 0, sizeof(client));
 
   size    = sizeof(struct sockaddr_in);
-  request = accept(sock, (struct sockaddr *) &clientAddr, (socklen_t*) &size);
+  request = accept(sock, (struct sockaddr*) &client, &length);
 
   if (request < 0) {
     logger->messageFromCode("ERR_SOCKET_ACCEPT");
@@ -105,35 +104,71 @@ StreamSocket& StreamSocket::lookOut (int maximumPendingRequestsQueueSize_) {
   return request;
 }
 
+StreamSocket& StreamSocket::receive (int client_) {
+  // http://stackoverflow.com/questions/7352099/stdstring-to-char
+  char buffer[BUFFER_SIZE];
+  int status;
+
+  while (1) {
+
+    status = recv(client_, buffer, BUFFER_SIZE, 0);
+
+    if (status < 0) {
+      logger->messageFromCode("ERR_SOCKET_CANNOT_RECEIVE");
+      break;
+    }
+
+    if (status == 0) {
+      logger->messageFromCode("ERR_SOCKET_CLIENT_DISCONNECTED");
+      break;
+    }
+
+    if (status > 0) {
+      logger->info("------------------------------");
+      logger->info(buffer);
+      logger->info("------------------------------");
+    }
+
+    if (strcmp(buffer, "exit") == 0) {
+      break;
+    }
+
+  }
+
+  return *this;
+}
+
 StreamSocket& StreamSocket::deliver (string message_) {
   // http://stackoverflow.com/questions/7352099/stdstring-to-char
   char * message = (char *) message_.c_str();
-  ssize_t length, status;
-
-  length  = strlen(message);
+  ssize_t length = strlen(message);
   logger->info(logger->toString(sock) + " -> " + message_ + "(" + logger->toString(length) + ")");
 
-  status = send(sock, message, length, 0);
-
-  logger->info("send ok");
-
-  if (status < 0) {
+  if (send(sock, message, length, 0) < 0) {
     logger->messageFromCode("ERR_SOCKET_SEND");
     StreamSocket::quit();
   }
+  logger->info("send ok");
 
   logger->info("a message has been sent on this socket...");
+  return *this;
+}
+
+StreamSocket& StreamSocket::disconnect (int sock_) {
+  if (sock_ > 0) {
+    close(sock_);
+  }
+
+  logger->info("client disconnected...");
   return *this;
 }
 
 void StreamSocket::quit () {
   if (sock > 0) {
     close(sock);
-    sock = -1;
   }
 
-  logger->info("socket closed...");
-  exit(1);
+  logger->info("server closed...");
 }
 
 

@@ -1,7 +1,7 @@
 /* -*- C++ -*- */
 
 /****************************************************************************
-** Copyright (c) 2016 - 2018, Malo Blanchard
+** Copyright (C) 2016-2018 Malo Blanchard
 **
 ** This file is part of the SimpleWebServer project
 **
@@ -45,7 +45,7 @@
       /* Port on which the Socket's instance is binded and listening */
       int port;
       /* sockaddr_in structure declaration */
-      struct sockaddr_in clientAddr, serverAddr;
+      struct sockaddr_in client, server;
       /* Logger instance */
       Logger* logger;
 
@@ -97,6 +97,15 @@
        * Sends a message on a socket
        * @see {@link http://www.linuxhowtos.org/manpages/2/send.htm}
        *
+       * @param  client_ Client socket value
+       * @return Address of the SreamSocket instance
+       */
+      StreamSocket& receive (int client_);
+
+      /**
+       * Sends a message on a socket
+       * @see {@link http://www.linuxhowtos.org/manpages/2/send.htm}
+       *
        * @param  message_ Port number
        * @return Address of the SreamSocket instance
        */
@@ -106,7 +115,15 @@
       // @see http://www.binarytides.com/code-a-simple-socket-client-class-in-c/
 
       /**
-       * Close the current Socket instance
+       * Disconnect the current Socket instance
+       *
+       * @param  sock_ Client socket value
+       * @return Address of the SreamSocket instance
+       */
+      StreamSocket& disconnect (int sock_);
+
+      /**
+       * Close the server Socket instance
        */
       void quit ();
 

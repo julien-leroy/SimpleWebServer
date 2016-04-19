@@ -1,7 +1,7 @@
 /* -*- C++ -*- */
 
 /****************************************************************************
-** Copyright (c) 2016 - 2018, Malo Blanchard
+** Copyright (C) 2016-2018 Malo Blanchard
 **
 ** This file is part of the SimpleWebServer project
 **
