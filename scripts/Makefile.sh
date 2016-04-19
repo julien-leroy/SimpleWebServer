@@ -11,9 +11,9 @@ function makeBuild() {
   echo "BUILD"
   echo "------------------------------------------------------"
   g++ -c $2/src/helpers/Logger.cc $FLAGS
-  g++ -c $2/src/socket/StreamSocket.cc $FLAGS
+  g++ -c $2/src/socket/TCPSocket.cc $FLAGS
   g++ -c $2/src/main.cc $FLAGS
-  g++ -o $1 $2/Logger.o $2/StreamSocket.o $2/main.o $FLAGS
+  g++ -o $1 $2/Logger.o $2/TCPSocket.o $2/main.o $FLAGS
   return 0
 }
 

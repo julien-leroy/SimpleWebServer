@@ -26,6 +26,9 @@ void Logger::debug (string message_) {
 void Logger::messageFromCode (string code_) {
   const int LINES = 10; // @todo beuurk
   const int CELLS = 2; // @todo beuurk
+  // @todo remplacer par map<string, string> mime;
+  // https://github.com/konteck/wpp/blob/master/web%2B%2B.hpp
+  //ex: mime["jpg"] = "image/jpeg";
   string messages[LINES][CELLS] = {
     { "ERR_UNKNOWN_ERR",                "unknown error" },
     { "ERR_SOCKET_CREATE",              "Could not create socket" },
