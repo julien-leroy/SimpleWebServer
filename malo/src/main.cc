@@ -27,6 +27,7 @@
 int main(int argc, char *argv[]) {
 
   size_t length = 255;
+  int client;
 
   /* Logger instance */
   Logger *logger = new Logger();
@@ -38,13 +39,15 @@ int main(int argc, char *argv[]) {
         .attach(8888)
         .lookOut(5);
 
-  int client = socket.acquire();
+  while (1) {
+    client = socket.acquire();
+    if (socket.receive(client)) {
+      socket.deliver(client, "coucou client !")
+            .disconnect(client);
+    }
+  }
 
-  socket.receive(client);
-
-  socket.disconnect(client);
-
-  //socket.quit();
+  socket.quit();
 
   return 0;
 }

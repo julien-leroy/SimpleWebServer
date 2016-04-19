@@ -98,18 +98,19 @@
        * @see {@link http://www.linuxhowtos.org/manpages/2/send.htm}
        *
        * @param  client_ Client socket value
-       * @return Address of the SreamSocket instance
+       * @return Status of the client request
        */
-      StreamSocket& receive (int client_);
+      bool receive (int client_);
 
       /**
        * Sends a message on a socket
        * @see {@link http://www.linuxhowtos.org/manpages/2/send.htm}
        *
+       * @param  sock_    Client socket value
        * @param  message_ Port number
        * @return Address of the SreamSocket instance
        */
-      StreamSocket& deliver (std::string message_);
+      StreamSocket& deliver (int sock_, std::string message_);
 
       // @todo ajouter les méthodes liées au client comme 'connect'
       // @see http://www.binarytides.com/code-a-simple-socket-client-class-in-c/

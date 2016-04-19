@@ -104,53 +104,36 @@ int StreamSocket::acquire () {
   return request;
 }
 
-StreamSocket& StreamSocket::receive (int client_) {
+bool StreamSocket::receive (int client_) {
   // http://stackoverflow.com/questions/7352099/stdstring-to-char
   char buffer[BUFFER_SIZE];
-  int status;
+  int status = recv(client_, buffer, BUFFER_SIZE, 0);
 
-  while (1) {
-
-    status = recv(client_, buffer, BUFFER_SIZE, 0);
-
-    if (status < 0) {
-      logger->messageFromCode("ERR_SOCKET_CANNOT_RECEIVE");
-      break;
-    }
-
-    if (status == 0) {
-      logger->messageFromCode("ERR_SOCKET_CLIENT_DISCONNECTED");
-      break;
-    }
-
-    if (status > 0) {
-      logger->info("------------------------------");
-      logger->info(buffer);
-      logger->info("------------------------------");
-    }
-
-    if (strcmp(buffer, "exit") == 0) {
-      break;
-    }
-
+  if (status < 0) {
+    logger->messageFromCode("ERR_SOCKET_CANNOT_RECEIVE");
+    return false;
   }
 
-  return *this;
+  if (status == 0) {
+    logger->messageFromCode("ERR_SOCKET_CLIENT_DISCONNECTED");
+    return false;
+  }
+
+  logger->info("request from client catched");
+  //logger->info(buffer);
+  return true;
 }
 
-StreamSocket& StreamSocket::deliver (string message_) {
+StreamSocket& StreamSocket::deliver (int sock_, string message_) {
   // http://stackoverflow.com/questions/7352099/stdstring-to-char
   char * message = (char *) message_.c_str();
   ssize_t length = strlen(message);
-  logger->info(logger->toString(sock) + " -> " + message_ + "(" + logger->toString(length) + ")");
 
-  if (send(sock, message, length, 0) < 0) {
+  if (send(sock_, message, length, 0) < 0) {
     logger->messageFromCode("ERR_SOCKET_SEND");
     StreamSocket::quit();
   }
-  logger->info("send ok");
-
-  logger->info("a message has been sent on this socket...");
+  logger->info("a response has been sent to the connected client...");
   return *this;
 }
 
@@ -169,6 +152,7 @@ void StreamSocket::quit () {
   }
 
   logger->info("server closed...");
+  exit(0);
 }
 
 
