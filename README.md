@@ -13,9 +13,3 @@ bash scripts/Makefile.sh
 navigator -> "http://{VM_ETH0_IP_ADDRESS}:{PORT_NUMBER}/{FILE_NAME_OR_NOTHING}"
 ```
 
-
-### TODO
-```
-[--] Gestion requêtes concurrentes (fork, threads, threadpool, event (epoll))
-[--] fournir un dossier avec la solution et des benchmarks (temps de réponse, CPU usage, RAM usage), compréhension des existants (nginx, apache)
-```
