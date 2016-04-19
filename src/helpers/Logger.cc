@@ -5,25 +5,39 @@
 
 using namespace std;
 
-Logger::Logger () {}
+Logger::Logger (bool isProduction_) {
+  isProduction = isProduction_;
+}
 
 void Logger::console (string message_) {
   cout << message_ << endl;
 }
 
 void Logger::info (string message_) {
+  if (isProduction) {
+    return;
+  }
   this->console("INF: " + message_);
 }
 
 void Logger::error (string message_) {
+  if (isProduction) {
+    return;
+  }
   this->console("ERR: " + message_);
 }
 
 void Logger::debug (string message_) {
+  if (isProduction) {
+    return;
+  }
   this->console("DEB: " + message_);
 }
 
 void Logger::messageFromCode (string code_) {
+  if (isProduction) {
+    return;
+  }
   const int LINES = 10; // @todo beuurk
   const int CELLS = 2; // @todo beuurk
   // @todo remplacer par map<string, string> mime;

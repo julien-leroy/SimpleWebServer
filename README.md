@@ -20,8 +20,8 @@ navigator -> "http://{VM_ETH0_IP_ADDRESS}:{PORT_NUMBER}/{FILE_NAME_OR_NOTHING}"
  4. Lancement d'une boucle infinie :
     1. Récupération du premier client se connectant à notre socket
     2. Si ce dernier nous envoie une requête :
-      - Traitement de la requête
-      - Génération de la réponse
-      - Envoi de la réponse avec le bon formatage (HEADER, HTTP status code)
-      - Déconnection du client courant
+      1. Traitement de la requête
+      2. Génération de la réponse
+      3. Envoi de la réponse avec le bon formatage (HEADER, HTTP status code, etc.)
+      4. Déconnection du client courant
  5. Arrêt du socket

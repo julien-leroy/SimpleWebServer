@@ -11,6 +11,9 @@
 
     protected:
 
+      /* Boolean that disable logs for production env. */
+      bool isProduction;
+
       /**
        * Display a message in the terminal
        *
@@ -22,8 +25,10 @@
 
       /**
        * Contructor
+       *
+       * @param isProduction_  Boolean that represent the env
        */
-      Logger ();
+      Logger (bool isProduction_);
 
       /**
        * Send information to an input (stdout)
