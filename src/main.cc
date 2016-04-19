@@ -15,7 +15,7 @@ int main(int argc, char *argv[]) {
   string request, response;
 
   /* Logger instance */
-  Logger *logger = new Logger();
+  Logger *logger = new Logger(true);
 
   /* TCPSocket instance */
   TCPSocket socket = TCPSocket(SOCK_STREAM, AF_INET, logger);
@@ -33,7 +33,7 @@ int main(int argc, char *argv[]) {
       if(pid < 0){
         perror("ERROR on fork");
       }
-      
+
       if(pid == 0){
         response = socket.getRessource(); // @todo refactor -> déplacer cette méthode dans une classe serveur, ce n'est pas le rôle du socket !
         socket.deliver(client, response);
