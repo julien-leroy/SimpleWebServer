@@ -1,24 +1,5 @@
 #!/bin/bash
 
-## ****************************************************************************
-## Copyright (c) 2016 - 2018, Malo Blanchard
-##
-## This file is part of the SimpleWebServer project
-##
-## This file may be distributed under the terms of the SimpleWebServer
-## license as defined by SimpleWebServer and appearing in the file
-## LICENSE included in the packaging of this file.
-##
-## This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
-## WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
-##
-## See https://github.com/Izin/sws/master/LICENSE for licensing information.
-##
-## Contact github@maloblanchard.com if any conditions of this licensing are
-## not clear to you.
-##
-
-
 MAKE_ENTRY_POINT="main"
 MAKE_ROOT_PATH=`pwd`
 
