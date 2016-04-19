@@ -5,7 +5,7 @@ MAKE_ROOT_PATH=`pwd`
 
 function makeBuild() {
   #local FLAGS="-W -Wall -Werror -pedantic -pthread -std=c++11"
-  local FLAGS="-std=c++11"
+  local FLAGS="-std=c++11 -pthread"
 
   clear
   echo "BUILD"

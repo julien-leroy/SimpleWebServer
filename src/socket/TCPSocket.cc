@@ -177,7 +177,6 @@ string TCPSocket::getRessource () {
     response = response + getFileContent("./www/error404.html");
   }
 
-  logger->info(response);
   return response;
 }
 
