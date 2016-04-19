@@ -1,0 +1,4 @@
+/media/sf_Simple-WebSocket-Server/test/CMakeFiles/crypto_test.dir
+/media/sf_Simple-WebSocket-Server/test/CMakeFiles/parse_test.dir
+/media/sf_Simple-WebSocket-Server/CMakeFiles/ws_examples.dir
+/media/sf_Simple-WebSocket-Server/CMakeFiles/wss_examples.dir

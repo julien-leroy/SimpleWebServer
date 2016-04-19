@@ -1,0 +1,1 @@
+/usr/bin/c++    -std=c++11 -O3 -Wall    CMakeFiles/wss_examples.dir/wss_examples.cpp.o  -o wss_examples -rdynamic -lboost_system -lboost_regex -Wl,-Bstatic -lboost_coroutine -Wl,-Bdynamic -lboost_context -lboost_thread -lpthread -lssl -lcrypto -lpthread 

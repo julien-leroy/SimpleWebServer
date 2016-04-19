@@ -79,14 +79,14 @@ test/fast: test
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /media/sf_Simple-WebSocket-Server/CMakeFiles /media/sf_Simple-WebSocket-Server/CMakeFiles/progress.marks
-	$(MAKE) -f CMakeFiles/Makefile2 all
+	cd /media/sf_Simple-WebSocket-Server && $(CMAKE_COMMAND) -E cmake_progress_start /media/sf_Simple-WebSocket-Server/CMakeFiles /media/sf_Simple-WebSocket-Server/test/CMakeFiles/progress.marks
+	cd /media/sf_Simple-WebSocket-Server && $(MAKE) -f CMakeFiles/Makefile2 test/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /media/sf_Simple-WebSocket-Server/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	$(MAKE) -f CMakeFiles/Makefile2 clean
+	cd /media/sf_Simple-WebSocket-Server && $(MAKE) -f CMakeFiles/Makefile2 test/clean
 .PHONY : clean
 
 # The main clean target
@@ -95,118 +95,94 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	$(MAKE) -f CMakeFiles/Makefile2 preinstall
+	cd /media/sf_Simple-WebSocket-Server && $(MAKE) -f CMakeFiles/Makefile2 test/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	$(MAKE) -f CMakeFiles/Makefile2 preinstall
+	cd /media/sf_Simple-WebSocket-Server && $(MAKE) -f CMakeFiles/Makefile2 test/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /media/sf_Simple-WebSocket-Server && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-#=============================================================================
-# Target rules for targets named ws_examples
+# Convenience name for target.
+test/CMakeFiles/crypto_test.dir/rule:
+	cd /media/sf_Simple-WebSocket-Server && $(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/crypto_test.dir/rule
+.PHONY : test/CMakeFiles/crypto_test.dir/rule
 
-# Build rule for target.
-ws_examples: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ws_examples
-.PHONY : ws_examples
-
-# fast build rule for target.
-ws_examples/fast:
-	$(MAKE) -f CMakeFiles/ws_examples.dir/build.make CMakeFiles/ws_examples.dir/build
-.PHONY : ws_examples/fast
-
-#=============================================================================
-# Target rules for targets named wss_examples
-
-# Build rule for target.
-wss_examples: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 wss_examples
-.PHONY : wss_examples
-
-# fast build rule for target.
-wss_examples/fast:
-	$(MAKE) -f CMakeFiles/wss_examples.dir/build.make CMakeFiles/wss_examples.dir/build
-.PHONY : wss_examples/fast
-
-#=============================================================================
-# Target rules for targets named crypto_test
-
-# Build rule for target.
-crypto_test: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 crypto_test
+# Convenience name for target.
+crypto_test: test/CMakeFiles/crypto_test.dir/rule
 .PHONY : crypto_test
 
 # fast build rule for target.
 crypto_test/fast:
-	$(MAKE) -f test/CMakeFiles/crypto_test.dir/build.make test/CMakeFiles/crypto_test.dir/build
+	cd /media/sf_Simple-WebSocket-Server && $(MAKE) -f test/CMakeFiles/crypto_test.dir/build.make test/CMakeFiles/crypto_test.dir/build
 .PHONY : crypto_test/fast
 
-#=============================================================================
-# Target rules for targets named parse_test
+# Convenience name for target.
+test/CMakeFiles/parse_test.dir/rule:
+	cd /media/sf_Simple-WebSocket-Server && $(MAKE) -f CMakeFiles/Makefile2 test/CMakeFiles/parse_test.dir/rule
+.PHONY : test/CMakeFiles/parse_test.dir/rule
 
-# Build rule for target.
-parse_test: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 parse_test
+# Convenience name for target.
+parse_test: test/CMakeFiles/parse_test.dir/rule
 .PHONY : parse_test
 
 # fast build rule for target.
 parse_test/fast:
-	$(MAKE) -f test/CMakeFiles/parse_test.dir/build.make test/CMakeFiles/parse_test.dir/build
+	cd /media/sf_Simple-WebSocket-Server && $(MAKE) -f test/CMakeFiles/parse_test.dir/build.make test/CMakeFiles/parse_test.dir/build
 .PHONY : parse_test/fast
 
-ws_examples.o: ws_examples.cpp.o
-.PHONY : ws_examples.o
+crypto_test.o: crypto_test.cpp.o
+.PHONY : crypto_test.o
 
 # target to build an object file
-ws_examples.cpp.o:
-	$(MAKE) -f CMakeFiles/ws_examples.dir/build.make CMakeFiles/ws_examples.dir/ws_examples.cpp.o
-.PHONY : ws_examples.cpp.o
+crypto_test.cpp.o:
+	cd /media/sf_Simple-WebSocket-Server && $(MAKE) -f test/CMakeFiles/crypto_test.dir/build.make test/CMakeFiles/crypto_test.dir/crypto_test.cpp.o
+.PHONY : crypto_test.cpp.o
 
-ws_examples.i: ws_examples.cpp.i
-.PHONY : ws_examples.i
+crypto_test.i: crypto_test.cpp.i
+.PHONY : crypto_test.i
 
 # target to preprocess a source file
-ws_examples.cpp.i:
-	$(MAKE) -f CMakeFiles/ws_examples.dir/build.make CMakeFiles/ws_examples.dir/ws_examples.cpp.i
-.PHONY : ws_examples.cpp.i
+crypto_test.cpp.i:
+	cd /media/sf_Simple-WebSocket-Server && $(MAKE) -f test/CMakeFiles/crypto_test.dir/build.make test/CMakeFiles/crypto_test.dir/crypto_test.cpp.i
+.PHONY : crypto_test.cpp.i
 
-ws_examples.s: ws_examples.cpp.s
-.PHONY : ws_examples.s
+crypto_test.s: crypto_test.cpp.s
+.PHONY : crypto_test.s
 
 # target to generate assembly for a file
-ws_examples.cpp.s:
-	$(MAKE) -f CMakeFiles/ws_examples.dir/build.make CMakeFiles/ws_examples.dir/ws_examples.cpp.s
-.PHONY : ws_examples.cpp.s
+crypto_test.cpp.s:
+	cd /media/sf_Simple-WebSocket-Server && $(MAKE) -f test/CMakeFiles/crypto_test.dir/build.make test/CMakeFiles/crypto_test.dir/crypto_test.cpp.s
+.PHONY : crypto_test.cpp.s
 
-wss_examples.o: wss_examples.cpp.o
-.PHONY : wss_examples.o
+parse_test.o: parse_test.cpp.o
+.PHONY : parse_test.o
 
 # target to build an object file
-wss_examples.cpp.o:
-	$(MAKE) -f CMakeFiles/wss_examples.dir/build.make CMakeFiles/wss_examples.dir/wss_examples.cpp.o
-.PHONY : wss_examples.cpp.o
+parse_test.cpp.o:
+	cd /media/sf_Simple-WebSocket-Server && $(MAKE) -f test/CMakeFiles/parse_test.dir/build.make test/CMakeFiles/parse_test.dir/parse_test.cpp.o
+.PHONY : parse_test.cpp.o
 
-wss_examples.i: wss_examples.cpp.i
-.PHONY : wss_examples.i
+parse_test.i: parse_test.cpp.i
+.PHONY : parse_test.i
 
 # target to preprocess a source file
-wss_examples.cpp.i:
-	$(MAKE) -f CMakeFiles/wss_examples.dir/build.make CMakeFiles/wss_examples.dir/wss_examples.cpp.i
-.PHONY : wss_examples.cpp.i
+parse_test.cpp.i:
+	cd /media/sf_Simple-WebSocket-Server && $(MAKE) -f test/CMakeFiles/parse_test.dir/build.make test/CMakeFiles/parse_test.dir/parse_test.cpp.i
+.PHONY : parse_test.cpp.i
 
-wss_examples.s: wss_examples.cpp.s
-.PHONY : wss_examples.s
+parse_test.s: parse_test.cpp.s
+.PHONY : parse_test.s
 
 # target to generate assembly for a file
-wss_examples.cpp.s:
-	$(MAKE) -f CMakeFiles/wss_examples.dir/build.make CMakeFiles/wss_examples.dir/wss_examples.cpp.s
-.PHONY : wss_examples.cpp.s
+parse_test.cpp.s:
+	cd /media/sf_Simple-WebSocket-Server && $(MAKE) -f test/CMakeFiles/parse_test.dir/build.make test/CMakeFiles/parse_test.dir/parse_test.cpp.s
+.PHONY : parse_test.cpp.s
 
 # Help Target
 help:
@@ -214,19 +190,17 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... crypto_test"
 	@echo "... edit_cache"
+	@echo "... parse_test"
 	@echo "... rebuild_cache"
 	@echo "... test"
-	@echo "... ws_examples"
-	@echo "... wss_examples"
-	@echo "... crypto_test"
-	@echo "... parse_test"
-	@echo "... ws_examples.o"
-	@echo "... ws_examples.i"
-	@echo "... ws_examples.s"
-	@echo "... wss_examples.o"
-	@echo "... wss_examples.i"
-	@echo "... wss_examples.s"
+	@echo "... crypto_test.o"
+	@echo "... crypto_test.i"
+	@echo "... crypto_test.s"
+	@echo "... parse_test.o"
+	@echo "... parse_test.i"
+	@echo "... parse_test.s"
 .PHONY : help
 
 
@@ -238,6 +212,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /media/sf_Simple-WebSocket-Server && $(CMAKE_COMMAND) -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 
