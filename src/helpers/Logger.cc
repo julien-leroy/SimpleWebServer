@@ -10,7 +10,7 @@ Logger::Logger (bool isProduction_) {
 }
 
 void Logger::console (string message_) {
-  cout << message_ << endl;
+  // cout << message_ << endl;
 }
 
 void Logger::info (string message_) {

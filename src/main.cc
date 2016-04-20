@@ -2,6 +2,8 @@
 #include <cstring>  // std::string, std::to_string
 #include <stdio.h>
 #include <unistd.h>
+#include <signal.h>
+#include <sys/wait.h>
 
 #include "helpers/Logger.hh"
 #include "socket/TCPSocket.hh"
@@ -28,23 +30,22 @@ int main(int argc, char *argv[]) {
     client = socket.acquire();
 
     if (socket.receive(client)) {
-      pid_t pid = fork();
 
-      if(pid < 0){
-        perror("ERROR on fork");
-      }
-
+      pid_t pid;
+      pid = fork();
+      int status;
+      
       if(pid == 0){
         response = socket.getRessource(); // @todo refactor -> déplacer cette méthode dans une classe serveur, ce n'est pas le rôle du socket !
         socket.deliver(client, response);
-        exit(0);
+        break;
+      } else {
+        waitpid(pid, &status, WUNTRACED);
       }
       socket.disconnect(client);
     }
-
   }
 
   socket.quit();
-
   return EXIT_SUCCESS;
 }
